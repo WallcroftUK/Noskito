@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Noskito.Login": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:50320;http://localhost:50323"
+    }
+  }
+}

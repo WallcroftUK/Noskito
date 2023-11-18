@@ -67,5 +67,7 @@ namespace Noskito.Toolkit.Parser.Reader
         {
             return string.Join(separator.ToString(), content);
         }
+
+        public int Length => content.Length;
     }
 }

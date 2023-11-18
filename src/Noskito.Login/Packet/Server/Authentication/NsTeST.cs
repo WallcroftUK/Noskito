@@ -24,7 +24,8 @@ namespace Noskito.Login.Packet.Server.Authentication
     {
         protected override string CreatePacket(NsTeST source)
         {
-            var packet = $"NsTeST {source.RegionId} {source.Account} {source.EncryptionKey} ";
+            //later make this properly :D
+            var packet = $"NsTeST {source.RegionId} {source.Account} -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 {source.EncryptionKey} ";
             foreach (var server in source.Servers)
                 packet += $"{server.Host}:{server.Port}:{server.Color}:{server.Id}.{server.Count}.{server.Name} ";
 

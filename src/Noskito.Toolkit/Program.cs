@@ -67,25 +67,18 @@ namespace Noskito.Toolkit
                 })
                 .WithParsed<GenerateCommand>(command =>
                 {
-                    var input = new DirectoryInfo(command.Input);
-                    var output = new DirectoryInfo(command.Output);
+                    var path = new DirectoryInfo(command.Path);
                     
-                    if (!input.Exists)
+                    if (!path.Exists)
                     {
-                        logger.Error($"Can't found directory: {command.Input}");
-                        return;
-                    }
-
-                    if (!output.Exists)
-                    {
-                        logger.Error($"Can't found directory: {command.Output}");
+                        logger.Error($"Can't found directory: {command.Path}");
                         return;
                     }
 
                     var generators = provider.GetServices<IGenerator>();
                     foreach (var generator in generators)
                     {
-                        generator.Generate(input, output);
+                        generator.Generate(path);
                     }
                 });
         }

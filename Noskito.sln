@@ -1,12 +1,12 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noskito.Login", "src\Noskito.Login\Noskito.Login.csproj", "{3B9E61A0-5A5E-4EA6-B2AC-5D6D20BA6F10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Noskito.Login", "src\Noskito.Login\Noskito.Login.csproj", "{3B9E61A0-5A5E-4EA6-B2AC-5D6D20BA6F10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noskito.World", "src\Noskito.World\Noskito.World.csproj", "{0AF4E299-CDE1-41A7-B6C3-F5E11CBBE58F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Noskito.World", "src\Noskito.World\Noskito.World.csproj", "{0AF4E299-CDE1-41A7-B6C3-F5E11CBBE58F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noskito.Common", "src\Noskito.Common\Noskito.Common.csproj", "{7BB15455-F80B-4691-8F86-F2F74CAEC300}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Noskito.Common", "src\Noskito.Common\Noskito.Common.csproj", "{7BB15455-F80B-4691-8F86-F2F74CAEC300}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noskito.Database", "src\Noskito.Database\Noskito.Database.csproj", "{57550F3C-2C17-43EB-85D1-CF5381FE0B72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Noskito.Database", "src\Noskito.Database\Noskito.Database.csproj", "{57550F3C-2C17-43EB-85D1-CF5381FE0B72}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E5A11A2C-9D0C-458F-999F-B830A4BDE7C3}"
 EndProject
@@ -22,19 +22,19 @@ ProjectSection(SolutionItems) = preProject
 	scripts\docker.bat = scripts\docker.bat
 EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noskito.Enum", "src\Noskito.Enum\Noskito.Enum.csproj", "{3F0D45D5-EC5E-4867-8CB7-567023E556D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Noskito.Enum", "src\Noskito.Enum\Noskito.Enum.csproj", "{3F0D45D5-EC5E-4867-8CB7-567023E556D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noskito.Communication", "src\Noskito.Communication\Noskito.Communication.csproj", "{1325A6E3-F647-4265-A4F8-C1DC6CC69C94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Noskito.Communication", "src\Noskito.Communication\Noskito.Communication.csproj", "{1325A6E3-F647-4265-A4F8-C1DC6CC69C94}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Communication", "Communication", "{8AACD0B7-D119-4357-B32C-1AF1C59C04C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noskito.Communication.Rpc", "src\Noskito.Communication.Rpc\Noskito.Communication.Rpc.csproj", "{E923A174-D06A-4D89-A3AD-9625ADF889EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Noskito.Communication.Rpc", "src\Noskito.Communication.Rpc\Noskito.Communication.Rpc.csproj", "{E923A174-D06A-4D89-A3AD-9625ADF889EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noskito.Cluster", "src\Noskito.Cluster\Noskito.Cluster.csproj", "{F32C5E67-8593-40E7-AF2E-8ECEEA936225}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Noskito.Cluster", "src\Noskito.Cluster\Noskito.Cluster.csproj", "{F32C5E67-8593-40E7-AF2E-8ECEEA936225}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{BFE424D3-3954-4B01-9FCA-5534B13084B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noskito.Toolkit", "src\Noskito.Toolkit\Noskito.Toolkit.csproj", "{906F4F95-EEC2-4B8D-8ECF-51DD3C2CAC10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Noskito.Toolkit", "src\Noskito.Toolkit\Noskito.Toolkit.csproj", "{906F4F95-EEC2-4B8D-8ECF-51DD3C2CAC10}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4F5744B4-EBF4-4093-8E5F-48B382B949A7}"
 ProjectSection(SolutionItems) = preProject

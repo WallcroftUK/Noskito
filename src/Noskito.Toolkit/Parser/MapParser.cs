@@ -32,14 +32,21 @@ namespace Noskito.Toolkit.Parser
                 return;
             }
 
-            var mapFiles = mapDirectory.EnumerateFiles("*.bin");
+            var datDirectory = directory.GetDirectories().FirstOrDefault(x => x.Name == "Data");
+            if (datDirectory == null)
+            {
+                logger.Warning("Missing Data directory, skipping dat parsing");
+                return;
+            }
+
+            var mapFiles = mapDirectory.EnumerateFiles("*");
             if (!mapFiles.Any())
             {
                 logger.Warning("Can't found any map file in Maps directory, skipping map parsing");
                 return;
             }
 
-            var mapIdData = directory.GetFiles().FirstOrDefault(x => x.Name == "MapIDData.dat");
+            var mapIdData = datDirectory.GetFiles().FirstOrDefault(x => x.Name == "MapIDData.dat");
             if (mapIdData == null)
             {
                 logger.Warning("Can't found MapIDData.dat, skipping map parsing");

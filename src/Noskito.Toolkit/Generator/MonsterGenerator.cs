@@ -19,9 +19,24 @@ namespace Noskito.Toolkit.Generator
             this.serialization = serialization;
         }
 
-        public void Generate(DirectoryInfo input, DirectoryInfo output)
+        public void Generate(DirectoryInfo directory)
         {
-            var file = input.GetFiles().FirstOrDefault(x => x.Name == "monsters.txt");
+
+            var packetDirectory = directory.GetDirectories().FirstOrDefault(x => x.Name == "Packets");
+            if (packetDirectory == null)
+            {
+                logger.Warning("Missing Packets directory, skipping packets parsing");
+                return;
+            }
+
+            var monstersDirectory = directory.GetDirectories().FirstOrDefault(x => x.Name == "Monsters");
+            if (monstersDirectory == null)
+            {
+                logger.Warning("Missing Monsters directory, skipping monsters parsing");
+                return;
+            }
+
+            var file = packetDirectory.GetFiles().FirstOrDefault(x => x.Name == "packet.txt");
             if (file == null)
             {
                 return;
@@ -44,9 +59,15 @@ namespace Noskito.Toolkit.Generator
                     continue;
                 }
 
-                var mapId = mapLine.GetValue<int>(2);
+                var mapId = short.Parse(mapLine.GetValue(2));
+
                 foreach (var line in map.GetLines("in"))
                 {
+
+                    if (line.Length <= 7 || line.GetValue<int>(1) != 3)
+                    {
+                        continue;
+                    }
                     monsters.Add(new Monster
                     {
                         GameId = line.GetValue<int>(2),
@@ -55,7 +76,7 @@ namespace Noskito.Toolkit.Generator
                     });
                 }
             
-                using (TextWriter writer = File.CreateText(Path.Combine(output.FullName, $"map_{mapId}.yml")))
+                using (TextWriter writer = File.CreateText(Path.Combine(monstersDirectory.FullName, $"map_{mapId}.yml")))
                 {
                     serialization.Serialize(writer, new MapMonsters
                     {

@@ -4,6 +4,6 @@ namespace Noskito.Toolkit.Generator
 {
     public interface IGenerator
     {
-        void Generate(DirectoryInfo input, DirectoryInfo output);
+        void Generate(DirectoryInfo directory);
     }
 }

@@ -29,7 +29,7 @@ namespace Noskito.Login
             } while (!clusterOnline);
 
             logger.Information("Starting server");
-            await server.Start(10000);
+            await server.Start(4000);
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)

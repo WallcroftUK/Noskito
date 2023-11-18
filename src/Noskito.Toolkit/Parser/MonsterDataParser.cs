@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Noskito.Common.Logging;
 using Noskito.Database.Dto;
@@ -31,15 +32,59 @@ namespace Noskito.Toolkit.Parser
         public async Task Parse(DirectoryInfo directory)
         {
             logger.Information("Parsing monsters data");
-            
-            var file = directory.GetFiles().FirstOrDefault(x => x.Name == "monster.dat");
-            if (file == null)
+
+            var datDirectory = directory.GetDirectories().FirstOrDefault(x => x.Name == "Data");
+            if (datDirectory == null)
             {
-                logger.Warning("Can't found MapIDData.dat, skipping map parsing");
+                logger.Warning("Missing Data directory, skipping dat parsing");
                 return;
             }
-            
-            TextContent monsterContent = TextReader.FromFile(file)
+
+            var langDirectory = directory.GetDirectories().FirstOrDefault(x => x.Name == "Lang");
+            if (datDirectory == null)
+            {
+                logger.Warning("Missing Data directory, skipping dat parsing");
+                return;
+            }
+
+            var datFile = datDirectory.GetFiles().FirstOrDefault(x => x.Name == "monster.dat");
+            if (datFile == null)
+            {
+                logger.Warning("Can't found monster.dat, skipping monster parsing");
+                return;
+            }
+
+            var langFile = langDirectory.GetFiles().FirstOrDefault(x => x.Name == "_code_uk_monster.txt");
+            if (langFile == null)
+            {
+                logger.Warning("Can't found _code_uk_monster.txt, skipping monster parsing");
+                return;
+            }
+
+            var dictionary = new Dictionary<string, string>();
+
+            TextContent npcIdLangContent = TextReader.FromFile(langFile)
+                .SkipCommentedLines("#")
+                .SkipEmptyLines()
+                .SplitLineContent('\t')
+                .TrimLines()
+                .GetContent();
+            foreach (var kvp in dictionary)
+            {
+                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+            }
+            foreach (var line in npcIdLangContent.GetLines("zts"))
+            {
+                var key = line.GetValue(0);
+                var value = line.GetValue(1);
+
+                if (!dictionary.ContainsKey(key))
+                {
+                    dictionary.Add(key, value);
+                }
+            }
+
+            TextContent monsterContent = TextReader.FromFile(datFile)
                 .SkipCommentedLines("#")
                 .SkipEmptyLines()
                 .SplitLineContent('\t')
@@ -61,7 +106,7 @@ namespace Noskito.Toolkit.Parser
                 
                 var id = vnumLine.GetValue<int>(1);
                 var level = levelLine.GetValue<int>(1);
-                var nameKey = nameLine.GetValue(1);
+                var nameKey = nameLine.GetValue(1); 
                 var hp = hpLine.GetValue<int>(1);
                 var mp = hpLine.GetValue<int>(2);
                 var race = raceLine.GetValue<byte>(1);
@@ -79,10 +124,13 @@ namespace Noskito.Toolkit.Parser
                 var lightResistance = attribLine.GetValue<int>(5);
                 var shadowResistance = attribLine.GetValue<int>(6);
 
+                // Extract name using dictionaryIdLang
+                var name = dictionary.ContainsKey(nameKey) ? dictionary[nameKey] : "";
+
                 datas.Add(new MonsterDataDTO
                 {
                     Id = id,
-                    Name = nameKey,
+                    Name = name,
                     Level = level,
                     MaxHp = hp + Hp[level],
                     MaxMp = mp + Mp[level],
