@@ -24,11 +24,21 @@ namespace Noskito.Login.Packet.Server.Authentication
     {
         protected override string CreatePacket(NsTeST source)
         {
-            //later make this properly :D
-            var packet = $"NsTeST {source.RegionId} {source.Account} -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 {source.EncryptionKey} ";
-            foreach (var server in source.Servers)
-                packet += $"{server.Host}:{server.Port}:{server.Color}:{server.Id}.{server.Count}.{server.Name} ";
+            string lastGroup = string.Empty;
+            int worldGroupCount = 0;
 
+            var packet = $"NsTeST {source.RegionId} {source.Account} -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 -99 0 {source.EncryptionKey} ";
+            foreach (var server in source.Servers )
+            {
+                if (lastGroup != server.Name)
+                {
+                    worldGroupCount++;
+                }
+
+                packet += $"{server.Host}:{server.Port}:{server.Color}:{server.Id}.{worldGroupCount}.{server.Name} "; 
+                //{server.Count} instead of {worldGroupCount} need look why it shows channel 0
+            }
+            //yea i know it looks bad but :D 
             packet += "-1:-1:-1:10000.10000.1";
 
             return packet;
