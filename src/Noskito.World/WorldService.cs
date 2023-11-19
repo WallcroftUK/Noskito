@@ -1,23 +1,21 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
-using Noskito.Common.Logging;
 using Noskito.Communication.Server;
+using Noskito.Logging;
 using Noskito.World.Network;
 
 namespace Noskito.World
 {
     public class WorldService : IHostedService
     {
-        private readonly ILogger logger;
-        private readonly NetworkServer server;
-        private readonly ServerService serverService;
+        private readonly NetworkServer _server;
+        private readonly ServerService _serverService;
 
-        public WorldService(ILogger logger, NetworkServer server, ServerService serverService)
+        public WorldService(NetworkServer server, ServerService serverService)
         {
-            this.logger = logger;
-            this.server = server;
-            this.serverService = serverService;
+            _server = server;
+            _serverService = serverService;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -25,30 +23,31 @@ namespace Noskito.World
             bool clusterOnline;
             do
             {
-                clusterOnline = await serverService.IsClusterOnline();
+                clusterOnline = await _serverService.IsClusterOnline();
             } while (!clusterOnline);
 
-            var added = await serverService.AddWorldServer(new WorldServer
+            var worldServer = new WorldServer
             {
                 Host = "127.0.0.1",
                 Port = 20000,
                 Name = "Noskito"
-            });
+            };
 
-            if (!added)
+            if (await _serverService.AddWorldServer(worldServer))
             {
-                logger.Warning("Failed to register world server");
-                return;
+                Log.Info("Starting server");
+                await _server.Start(worldServer.Port);
             }
-
-            logger.Information("Starting server");
-            await server.Start(20000);
+            else
+            {
+                Log.Warn("Failed to register world server");
+            }
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            logger.Information("Stopping server");
-            await server.Stop();
+            Log.Info("Stopping server");
+            await _server.Stop();
         }
     }
 }

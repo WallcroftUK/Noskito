@@ -3,30 +3,23 @@ using System.Text;
 using DotNetty.Buffers;
 using DotNetty.Codecs;
 using DotNetty.Transport.Channels;
-using Noskito.Common.Logging;
+using Noskito.Logging;
 
 namespace Noskito.Login.Network.Pipeline
 {
     public class Encoder : MessageToByteEncoder<string>
     {
-        private readonly ILogger logger;
-
-        public Encoder(ILogger logger)
-        {
-            this.logger = logger;
-        }
-
         protected override void Encode(IChannelHandlerContext context, string message, IByteBuffer output)
         {
             if (!output.IsWritable())
             {
-                logger.Debug("Output is not writable");
+                Log.Debug("Output is not writable");
                 return;
             }
 
             if (string.IsNullOrEmpty(message))
             {
-                logger.Debug("Can't encode an empty or null string");
+                Log.Debug("Can't encode an empty or null string");
                 return;
             }
 

@@ -2,9 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Noskito.Common.Logging;
 using Noskito.Database.Dto;
 using Noskito.Database.Repository;
+using Noskito.Logging;
 using Noskito.Toolkit.Objects;
 using Noskito.Toolkit.Serialization;
 
@@ -12,24 +12,22 @@ namespace Noskito.Toolkit.Parser
 {
     public class MonsterParser : IParser
     {
-        private readonly ILogger logger;
         private readonly ISerialization serialization;
         private readonly MonsterRepository monsterRepository;
 
-        public MonsterParser(ILogger logger, ISerialization serialization, MonsterRepository monsterRepository)
+        public MonsterParser(ISerialization serialization, MonsterRepository monsterRepository)
         {
-            this.logger = logger;
             this.serialization = serialization;
             this.monsterRepository = monsterRepository;
         }
 
         public async Task Parse(DirectoryInfo directory)
         {
-            logger.Information("Parsing monsters");
+            Log.Info("Parsing monsters");
             var monsterDirectory = directory.GetDirectories().FirstOrDefault(x => x.Name == "Monsters");
             if (monsterDirectory == null)
             {
-                logger.Warning("Missing Monsters directory, skipping monster parsing");
+                Log.Warn("Missing Monsters directory, skipping monster parsing");
                 return;
             }
 
@@ -58,8 +56,8 @@ namespace Noskito.Toolkit.Parser
             }
 
             await monsterRepository.SaveAll(monsters);
-            
-            logger.Information($"Saved {monsters.Count} monsters");
+
+            Log.Info($"Saved {monsters.Count} monsters");
         }
     }
 }

@@ -2,11 +2,11 @@
   "profiles": {
     "Noskito.World": {
       "commandName": "Project",
-      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:50322;http://localhost:50325"
+      "applicationUrl": "https://localhost:16000",
+      "hotReloadEnabled": false
     }
   }
 }

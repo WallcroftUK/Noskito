@@ -4,18 +4,16 @@ using System.Text;
 using DotNetty.Buffers;
 using DotNetty.Codecs;
 using DotNetty.Transport.Channels;
-using Noskito.Common.Logging;
+using Noskito.Logging;
 
 namespace Noskito.World.Network.Pipeline
 {
     public class Decoder : ByteToMessageDecoder
     {
         private readonly NetworkClient client;
-        private readonly ILogger logger;
 
-        public Decoder(ILogger logger, NetworkClient client)
+        public Decoder(NetworkClient client)
         {
-            this.logger = logger;
             this.client = client;
         }
 
@@ -23,7 +21,7 @@ namespace Noskito.World.Network.Pipeline
         {
             if (!input.IsReadable())
             {
-                logger.Debug("Input is not readable");
+                Log.Debug("Input is not readable");
                 return;
             }
 

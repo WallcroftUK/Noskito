@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Noskito.Common.Extension;
 using ProtoBuf.Grpc.Server;
+using Noskito.Logging;
+using System;
+using System.Linq;
+using System.Reflection;
 
 namespace Noskito.Cluster
 {
@@ -13,10 +16,11 @@ namespace Noskito.Cluster
     {
         public static async Task Main(string[] args)
         {
+            ObscuredHeader();
             var host = Host.CreateDefaultBuilder(args)
                 .ConfigureServices(x =>
                 {
-                    x.AddLogger();
+                    x.UseLoggingModule();
 
                     x.AddGrpc();
                     x.AddCodeFirstGrpc();
@@ -42,6 +46,26 @@ namespace Noskito.Cluster
                 await host.StartAsync();
                 await host.WaitForShutdownAsync();
             }
+        }
+        private static void ObscuredHeader()
+        {
+            Console.Title = "Noskito - Cluster";
+            const string text = @"
+███╗   ██╗ ██████╗ ███████╗██╗  ██╗██╗████████╗ ██████╗      ██████╗██╗     ██╗   ██╗███████╗████████╗███████╗██████╗ 
+████╗  ██║██╔═══██╗██╔════╝██║ ██╔╝██║╚══██╔══╝██╔═══██╗    ██╔════╝██║     ██║   ██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗
+██╔██╗ ██║██║   ██║███████╗█████╔╝ ██║   ██║   ██║   ██║    ██║     ██║     ██║   ██║███████╗   ██║   █████╗  ██████╔╝
+██║╚██╗██║██║   ██║╚════██║██╔═██╗ ██║   ██║   ██║   ██║    ██║     ██║     ██║   ██║╚════██║   ██║   ██╔══╝  ██╔══██╗
+██║ ╚████║╚██████╔╝███████║██║  ██╗██║   ██║   ╚██████╔╝    ╚██████╗███████╗╚██████╔╝███████║   ██║   ███████╗██║  ██║
+╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝      ╚═════╝╚══════╝ ╚═════╝ ╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
+";
+            string separator = new string('=', Console.WindowWidth);
+            string logo = text.Split('\n')
+                .Select(s => string.Format("{0," + (Console.WindowWidth / 2 + s.Length / 2) + "}\n", s))
+                .Aggregate("", (current, i) => current + i);
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(separator + logo + $"Version: {Assembly.GetExecutingAssembly().GetName().Version}\n" + separator);
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }

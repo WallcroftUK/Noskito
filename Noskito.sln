@@ -1,5 +1,7 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Noskito.Login", "src\Noskito.Login\Noskito.Login.csproj", "{3B9E61A0-5A5E-4EA6-B2AC-5D6D20BA6F10}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Noskito.World", "src\Noskito.World\Noskito.World.csproj", "{0AF4E299-CDE1-41A7-B6C3-F5E11CBBE58F}"
@@ -13,14 +15,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{56415ED2-7B66-48C2-B7E7-2E7AFB52CA31}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{FA9D0477-66B9-4A20-AD5C-63EAB906E6F3}"
-ProjectSection(SolutionItems) = preProject
-	docker-compose.yml = docker-compose.yml
-	scripts\start.bat = scripts\start.bat
-	scripts\cluster.bat = scripts\cluster.bat
-	scripts\login.bat = scripts\login.bat
-	scripts\world.bat = scripts\world.bat
-	scripts\docker.bat = scripts\docker.bat
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		scripts\cluster.bat = scripts\cluster.bat
+		docker-compose.yml = docker-compose.yml
+		scripts\docker.bat = scripts\docker.bat
+		scripts\login.bat = scripts\login.bat
+		scripts\start.bat = scripts\start.bat
+		scripts\world.bat = scripts\world.bat
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Noskito.Enum", "src\Noskito.Enum\Noskito.Enum.csproj", "{3F0D45D5-EC5E-4867-8CB7-567023E556D1}"
 EndProject
@@ -37,9 +39,17 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Noskito.Toolkit", "src\Noskito.Toolkit\Noskito.Toolkit.csproj", "{906F4F95-EEC2-4B8D-8ECF-51DD3C2CAC10}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4F5744B4-EBF4-4093-8E5F-48B382B949A7}"
-ProjectSection(SolutionItems) = preProject
-	docs\Monster.md = docs\Monster.md
-EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		docs\Monster.md = docs\Monster.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{C190DD54-4194-4CCB-B006-107BB4D9A2B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLoader.Module", "src\Modules\ResourceLoaderModule\DataLoader.Module.csproj", "{0B7A7FDF-80D4-4F83-B70E-1214A7B76152}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Noskito.Modules", "src\Noskito.Modules\Noskito.Modules.csproj", "{9C512C89-578D-45B6-8143-6F48DFD2F8FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noskito.Logging", "src\Noskito.Logging\Noskito.Logging.csproj", "{BDE4B7F9-0542-427B-99C6-316A06B4F6F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,18 +93,40 @@ Global
 		{906F4F95-EEC2-4B8D-8ECF-51DD3C2CAC10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{906F4F95-EEC2-4B8D-8ECF-51DD3C2CAC10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{906F4F95-EEC2-4B8D-8ECF-51DD3C2CAC10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B7A7FDF-80D4-4F83-B70E-1214A7B76152}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B7A7FDF-80D4-4F83-B70E-1214A7B76152}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B7A7FDF-80D4-4F83-B70E-1214A7B76152}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B7A7FDF-80D4-4F83-B70E-1214A7B76152}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C512C89-578D-45B6-8143-6F48DFD2F8FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C512C89-578D-45B6-8143-6F48DFD2F8FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C512C89-578D-45B6-8143-6F48DFD2F8FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C512C89-578D-45B6-8143-6F48DFD2F8FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDE4B7F9-0542-427B-99C6-316A06B4F6F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDE4B7F9-0542-427B-99C6-316A06B4F6F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDE4B7F9-0542-427B-99C6-316A06B4F6F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDE4B7F9-0542-427B-99C6-316A06B4F6F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{7BB15455-F80B-4691-8F86-F2F74CAEC300} = {E5A11A2C-9D0C-458F-999F-B830A4BDE7C3}
-		{3F0D45D5-EC5E-4867-8CB7-567023E556D1} = {E5A11A2C-9D0C-458F-999F-B830A4BDE7C3}
-		{8AACD0B7-D119-4357-B32C-1AF1C59C04C2} = {E5A11A2C-9D0C-458F-999F-B830A4BDE7C3}
-		{1325A6E3-F647-4265-A4F8-C1DC6CC69C94} = {8AACD0B7-D119-4357-B32C-1AF1C59C04C2}
-		{E923A174-D06A-4D89-A3AD-9625ADF889EB} = {8AACD0B7-D119-4357-B32C-1AF1C59C04C2}
-		{57550F3C-2C17-43EB-85D1-CF5381FE0B72} = {E5A11A2C-9D0C-458F-999F-B830A4BDE7C3}
-		{BFE424D3-3954-4B01-9FCA-5534B13084B0} = {E5A11A2C-9D0C-458F-999F-B830A4BDE7C3}
-		{0AF4E299-CDE1-41A7-B6C3-F5E11CBBE58F} = {BFE424D3-3954-4B01-9FCA-5534B13084B0}
 		{3B9E61A0-5A5E-4EA6-B2AC-5D6D20BA6F10} = {BFE424D3-3954-4B01-9FCA-5534B13084B0}
+		{0AF4E299-CDE1-41A7-B6C3-F5E11CBBE58F} = {BFE424D3-3954-4B01-9FCA-5534B13084B0}
+		{7BB15455-F80B-4691-8F86-F2F74CAEC300} = {E5A11A2C-9D0C-458F-999F-B830A4BDE7C3}
+		{57550F3C-2C17-43EB-85D1-CF5381FE0B72} = {E5A11A2C-9D0C-458F-999F-B830A4BDE7C3}
+		{3F0D45D5-EC5E-4867-8CB7-567023E556D1} = {E5A11A2C-9D0C-458F-999F-B830A4BDE7C3}
+		{1325A6E3-F647-4265-A4F8-C1DC6CC69C94} = {8AACD0B7-D119-4357-B32C-1AF1C59C04C2}
+		{8AACD0B7-D119-4357-B32C-1AF1C59C04C2} = {E5A11A2C-9D0C-458F-999F-B830A4BDE7C3}
+		{E923A174-D06A-4D89-A3AD-9625ADF889EB} = {8AACD0B7-D119-4357-B32C-1AF1C59C04C2}
 		{F32C5E67-8593-40E7-AF2E-8ECEEA936225} = {BFE424D3-3954-4B01-9FCA-5534B13084B0}
+		{BFE424D3-3954-4B01-9FCA-5534B13084B0} = {E5A11A2C-9D0C-458F-999F-B830A4BDE7C3}
 		{906F4F95-EEC2-4B8D-8ECF-51DD3C2CAC10} = {BFE424D3-3954-4B01-9FCA-5534B13084B0}
+		{C190DD54-4194-4CCB-B006-107BB4D9A2B1} = {E5A11A2C-9D0C-458F-999F-B830A4BDE7C3}
+		{0B7A7FDF-80D4-4F83-B70E-1214A7B76152} = {C190DD54-4194-4CCB-B006-107BB4D9A2B1}
+		{9C512C89-578D-45B6-8143-6F48DFD2F8FE} = {E5A11A2C-9D0C-458F-999F-B830A4BDE7C3}
+		{BDE4B7F9-0542-427B-99C6-316A06B4F6F8} = {E5A11A2C-9D0C-458F-999F-B830A4BDE7C3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AA24CA6A-859F-46CF-866E-8D98E272C9F1}
 	EndGlobalSection
 EndGlobal

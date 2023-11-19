@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Noskito.Common.Logging;
+using Noskito.Logging;
 using Noskito.Toolkit.Objects;
 using Noskito.Toolkit.Serialization;
 using TextReader = Noskito.Toolkit.Parser.Reader.TextReader;
@@ -10,12 +10,10 @@ namespace Noskito.Toolkit.Generator
 {
     public class MonsterGenerator : IGenerator
     {
-        private readonly ILogger logger;
         private readonly ISerialization serialization;
 
-        public MonsterGenerator(ILogger logger, ISerialization serialization)
+        public MonsterGenerator(ISerialization serialization)
         {
-            this.logger = logger;
             this.serialization = serialization;
         }
 
@@ -25,14 +23,14 @@ namespace Noskito.Toolkit.Generator
             var packetDirectory = directory.GetDirectories().FirstOrDefault(x => x.Name == "Packets");
             if (packetDirectory == null)
             {
-                logger.Warning("Missing Packets directory, skipping packets parsing");
+                Log.Warn("Missing Packets directory, skipping packets parsing");
                 return;
             }
 
             var monstersDirectory = directory.GetDirectories().FirstOrDefault(x => x.Name == "Monsters");
             if (monstersDirectory == null)
             {
-                logger.Warning("Missing Monsters directory, skipping monsters parsing");
+                Log.Warn("Missing Monsters directory, skipping monsters parsing");
                 return;
             }
 

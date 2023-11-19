@@ -2,7 +2,7 @@
 using DotNetty.Transport.Bootstrapping;
 using DotNetty.Transport.Channels;
 using DotNetty.Transport.Channels.Sockets;
-using Noskito.Common.Logging;
+using Noskito.Logging;
 using Noskito.Login.Network.Pipeline;
 using Noskito.Login.Packet;
 using Noskito.Login.Processor;
@@ -13,14 +13,11 @@ namespace Noskito.Login.Network
     {
         private readonly ServerBootstrap bootstrap;
         private readonly MultithreadEventLoopGroup bossGroup, workerGroup;
-        private readonly ILogger logger;
 
         private IChannel channel;
 
-        public NetworkServer(ILogger logger, PacketFactory packetFactory, ProcessorManager processorManager)
+        public NetworkServer(PacketFactory packetFactory, ProcessorManager processorManager)
         {
-            this.logger = logger;
-
             bossGroup = new MultithreadEventLoopGroup(1);
             workerGroup = new MultithreadEventLoopGroup();
 
@@ -32,7 +29,7 @@ namespace Noskito.Login.Network
                 {
                     var pipeline = x.Pipeline;
 
-                    var client = new NetworkClient(logger, x);
+                    var client = new NetworkClient(x);
                     var session = new LoginSession(client);
 
                     client.PacketReceived += packet =>
@@ -43,11 +40,11 @@ namespace Noskito.Login.Network
                         return processor.ProcessPacket(session, packet);
                     };
 
-                    pipeline.AddLast("decoder", new Decoder(logger));
-                    pipeline.AddLast("deserializer", new Deserializer(logger, packetFactory));
+                    pipeline.AddLast("decoder", new Decoder());
+                    pipeline.AddLast("deserializer", new Deserializer(packetFactory));
                     pipeline.AddLast("client", client);
-                    pipeline.AddLast("encoder", new Encoder(logger));
-                    pipeline.AddLast("serializer", new Serializer(logger, packetFactory));
+                    pipeline.AddLast("encoder", new Encoder());
+                    pipeline.AddLast("serializer", new Serializer(packetFactory));
                 }));
         }
 
@@ -55,7 +52,7 @@ namespace Noskito.Login.Network
         {
             channel = await bootstrap.BindAsync(port);
 
-            logger.Debug($"Server successfully started on port {port}");
+            Log.Debug($"Server successfully started on port {port}");
         }
 
         public async Task Stop()
@@ -65,7 +62,7 @@ namespace Noskito.Login.Network
             await bossGroup.ShutdownGracefullyAsync();
             await workerGroup.ShutdownGracefullyAsync();
 
-            logger.Debug("Server successfully shutdown");
+            Log.Debug("Server successfully shutdown");
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Noskito.Common.Logging;
 using Noskito.World.Packet.Client;
 using Noskito.World.Packet.Server;
 
@@ -10,13 +9,11 @@ namespace Noskito.World.Packet
     public class PacketFactory
     {
         private readonly Dictionary<string, CPacketCreator> clientPackets;
-        private readonly ILogger logger;
         private readonly Dictionary<Type, SPacketCreator> serverPackets;
 
-        public PacketFactory(ILogger logger, IEnumerable<CPacketCreator> clientPackets,
+        public PacketFactory(IEnumerable<CPacketCreator> clientPackets,
             IEnumerable<SPacketCreator> serverPackets)
         {
-            this.logger = logger;
             this.clientPackets = clientPackets.ToDictionary(x => x.Header);
             this.serverPackets = serverPackets.ToDictionary(x => x.PacketType);
         }

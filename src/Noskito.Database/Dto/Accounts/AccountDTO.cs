@@ -1,4 +1,4 @@
-﻿namespace Noskito.Database.Dto
+﻿namespace Noskito.Database.Dto.Accounts
 {
     public record AccountDTO
     {

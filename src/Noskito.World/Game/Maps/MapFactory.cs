@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Noskito.Common.Extension;
-using Noskito.Common.Logging;
 using Noskito.Database.Dto;
 using Noskito.Database.Repository;
 using Noskito.World.Game.Entities;
@@ -11,16 +10,14 @@ namespace Noskito.World.Game.Maps
 {
     public class MapFactory
     {
-        private readonly ILogger logger;
         private readonly MapRepository mapRepository;
         private readonly MonsterRepository monsterRepository;
         private readonly EntityFactory entityFactory;
 
         private readonly Dictionary<int, MapDTO> cachedMaps = new();
 
-        public MapFactory(ILogger logger, MapRepository mapRepository, MonsterRepository monsterRepository, EntityFactory entityFactory)
+        public MapFactory(MapRepository mapRepository, MonsterRepository monsterRepository, EntityFactory entityFactory)
         {
-            this.logger = logger;
             this.mapRepository = mapRepository;
             this.monsterRepository = monsterRepository;
             this.entityFactory = entityFactory;
@@ -40,7 +37,7 @@ namespace Noskito.World.Game.Maps
                 cachedMaps[mapId] = map;
             }
 
-            var createdMap = new Map(logger)
+            var createdMap = new Map()
             {
                 Id = map.Id,
                 Grid = map.Grid,

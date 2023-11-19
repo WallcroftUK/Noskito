@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Noskito.Common.Logging;
 using Noskito.Communication.Server;
 using Noskito.Database.Repository;
 using Noskito.Enum;
@@ -15,12 +14,10 @@ namespace Noskito.Login.Processor.Authentication
     public class NoS0575Processor : PacketProcessor<NoS0575>
     {
         private readonly AccountRepository accountRepository;
-        private readonly ILogger logger;
         private readonly ServerService serverService;
 
-        public NoS0575Processor(ILogger logger, AccountRepository accountRepository, ServerService serverService)
+        public NoS0575Processor(AccountRepository accountRepository, ServerService serverService)
         {
-            this.logger = logger;
             this.accountRepository = accountRepository;
             this.serverService = serverService;
         }

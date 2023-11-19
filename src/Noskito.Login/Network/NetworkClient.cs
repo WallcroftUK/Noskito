@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DotNetty.Transport.Channels;
-using Noskito.Common.Logging;
+using Noskito.Logging;
 using Noskito.Login.Packet.Client;
 using Noskito.Login.Packet.Server;
 
@@ -10,11 +10,9 @@ namespace Noskito.Login.Network
     public sealed class NetworkClient : ChannelHandlerAdapter
     {
         private readonly IChannel channel;
-        private readonly ILogger logger;
 
-        public NetworkClient(ILogger logger, IChannel channel)
+        public NetworkClient(IChannel channel)
         {
-            this.logger = logger;
             this.channel = channel;
         }
 
@@ -34,7 +32,7 @@ namespace Noskito.Login.Network
         {
             if (message is not CPacket packet)
             {
-                logger.Debug("Received a non ClientPacket message");
+                Log.Debug("Received a non ClientPacket message");
                 return;
             }
 
@@ -44,7 +42,7 @@ namespace Noskito.Login.Network
             }
             catch (Exception e)
             {
-                logger.Error($"Something happened when processing packet {packet.GetType().Name}", e);
+                Log.Error($"Something happened when processing packet {packet.GetType().Name}", e);
             }
         }
     }

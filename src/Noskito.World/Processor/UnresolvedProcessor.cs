@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Noskito.Common.Extension;
-using Noskito.Common.Logging;
 using Noskito.Database.Repository;
+using Noskito.Logging;
 using Noskito.World.Packet.Client;
 using Noskito.World.Packet.Server.CharacterScreen;
 using Noskito.World.Processor.Extension;
@@ -15,14 +15,12 @@ namespace Noskito.World.Processor
     {
         private readonly AccountRepository accountRepository;
         private readonly CharacterRepository characterRepository;
-        private readonly ILogger logger;
 
         private readonly Dictionary<Guid, string> storedUsernames = new();
 
-        public UnresolvedProcessor(ILogger logger, AccountRepository accountRepository,
+        public UnresolvedProcessor(AccountRepository accountRepository,
             CharacterRepository characterRepository)
         {
-            this.logger = logger;
             this.accountRepository = accountRepository;
             this.characterRepository = characterRepository;
         }
@@ -47,7 +45,7 @@ namespace Noskito.World.Processor
                 var accountDto = await accountRepository.GetAccountByName(username);
                 if (accountDto == null)
                 {
-                    logger.Debug("Can't found account");
+                    Log.Debug("Can't found account");
                     await session.Disconnect();
                     return;
                 }
@@ -55,7 +53,7 @@ namespace Noskito.World.Processor
                 if (!string.Equals(accountDto.Password, packet.Header.ToSha512(),
                     StringComparison.CurrentCultureIgnoreCase))
                 {
-                    logger.Debug("Wrong password");
+                    Log.Debug("Wrong password");
                     await session.Disconnect();
                     return;
                 }

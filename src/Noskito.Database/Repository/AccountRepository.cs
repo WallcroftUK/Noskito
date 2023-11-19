@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Noskito.Database.Dto;
+using Noskito.Database.Dto.Accounts;
 using Noskito.Database.Entity;
 
 namespace Noskito.Database.Repository

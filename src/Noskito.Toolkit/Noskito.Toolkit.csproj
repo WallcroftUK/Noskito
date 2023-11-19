@@ -2,6 +2,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
+	<Version>0.0.0.1</Version>
     <OutputPath>..\..\build\Toolkit</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
@@ -12,5 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Noskito.Common\Noskito.Common.csproj" />
     <ProjectReference Include="..\Noskito.Database\Noskito.Database.csproj" />
+    <ProjectReference Include="..\Noskito.Logging\Noskito.Logging.csproj" />
   </ItemGroup>
 </Project>

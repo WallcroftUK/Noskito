@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using DotNetty.Common.Utilities;
-using Noskito.Common.Logging;
 using Noskito.Enum;
+using Noskito.Logging;
 using Noskito.World.Game.Entities;
 using Noskito.World.Packet.Server;
 
@@ -21,14 +19,8 @@ namespace Noskito.World.Game.Maps
         public IEnumerable<Character> Characters => characters.Values;
         public IEnumerable<Monster> Monsters => monsters.Values;
 
-        private readonly ILogger logger;
         private readonly Dictionary<long, Character> characters = new();
         private readonly Dictionary<long, Monster> monsters = new();
-
-        public Map(ILogger logger)
-        {
-            this.logger = logger;
-        }
 
         public void AddEntity(Entity entity)
         {
@@ -36,11 +28,11 @@ namespace Noskito.World.Game.Maps
             {
                 case EntityType.Player:
                     characters[entity.Id] = (Character) entity;
-                    logger.Information($"Added character: {entity.Id}({entity.Name}) to map {Id}");
+                    Log.Info($"Added character: {entity.Id}({entity.Name}) to map {Id}");
                     break;
                 case EntityType.Monster:
                     monsters[entity.Id] = (Monster) entity;
-                    logger.Information($"Added monster: {entity.Id} to map {Id}");
+                    Log.Info($"Added monster: {entity.Id} to map {Id}");
                     break;
                 case EntityType.Npc:
                     break;

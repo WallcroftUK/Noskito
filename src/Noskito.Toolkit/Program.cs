@@ -1,15 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Threading.Tasks;
 using CommandLine;
-using Mapster;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Noskito.Common.Extension;
-using Noskito.Common.Logging;
 using Noskito.Database;
 using Noskito.Database.Extension;
+using Noskito.Logging;
 using Noskito.Toolkit.Command;
 using Noskito.Toolkit.Generator;
 using Noskito.Toolkit.Parser;
@@ -22,8 +18,8 @@ namespace Noskito.Toolkit
         public static void Main(string[] args)
         {
             var services = new ServiceCollection();
-            
-            services.AddLogger();
+
+            services.UseLoggingModule();
             services.AddDatabase();
             services.AddTransient<ISerialization, Yaml>();
             services.AddImplementingTypes<IGenerator>();
@@ -31,7 +27,6 @@ namespace Noskito.Toolkit
 
             var provider = services.BuildServiceProvider();
 
-            var logger = provider.GetRequiredService<ILogger>();
             var contextFactory = provider.GetRequiredService<DbContextFactory>();
             
             CommandLine.Parser.Default.ParseArguments<ParseCommand, GenerateCommand>(args)
@@ -42,17 +37,17 @@ namespace Noskito.Toolkit
                     var directory = new DirectoryInfo(command.Path);
                     if (!directory.Exists)
                     {
-                        logger.Error($"Can't found directory: {command.Path}");
+                        Log.Warn($"Can't found directory: {command.Path}");
                         return;
                     }
 
                     stopwatch.Start();
                     using (var context = contextFactory.CreateContext())
                     {
-                        logger.Information("Clearing database");
+                        Log.Info("Clearing database");
                         context.Database.EnsureDeleted();
-                        
-                        logger.Information("Migrating database");
+
+                        Log.Info("Migrating database");
                         context.Database.EnsureCreated();
                     }
                     
@@ -62,8 +57,8 @@ namespace Noskito.Toolkit
                         parser.Parse(directory).GetAwaiter().GetResult();
                     }
                     stopwatch.Stop();
-                    
-                    logger.Information($"Parsing completed in {stopwatch.Elapsed:mm\\:ss}");
+
+                    Log.Info($"Parsing completed in {stopwatch.Elapsed:mm\\:ss}");
                 })
                 .WithParsed<GenerateCommand>(command =>
                 {
@@ -71,7 +66,7 @@ namespace Noskito.Toolkit
                     
                     if (!path.Exists)
                     {
-                        logger.Error($"Can't found directory: {command.Path}");
+                        Log.Warn($"Can't found directory: {command.Path}");
                         return;
                     }
 

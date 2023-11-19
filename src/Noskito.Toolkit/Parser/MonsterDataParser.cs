@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Noskito.Common.Logging;
 using Noskito.Database.Dto;
 using Noskito.Database.Repository;
 using Noskito.Enum;
+using Noskito.Logging;
 using Noskito.Toolkit.Parser.Reader;
 using TextReader = Noskito.Toolkit.Parser.Reader.TextReader;
 
@@ -15,7 +15,6 @@ namespace Noskito.Toolkit.Parser
 {
     public class MonsterDataParser : IParser
     {
-        private readonly ILogger logger;
         private readonly MonsterDataRepository monsterDataRepository;
 
         private static readonly int[] Hp = CreateHpArray();
@@ -23,41 +22,40 @@ namespace Noskito.Toolkit.Parser
         private static readonly int[] Experience = CreateExperienceArray();
         private static readonly int[] JobExperience = CreateJobExperienceArray();
         
-        public MonsterDataParser(ILogger logger, MonsterDataRepository monsterDataRepository)
+        public MonsterDataParser(MonsterDataRepository monsterDataRepository)
         {
-            this.logger = logger;
             this.monsterDataRepository = monsterDataRepository;
         }
 
         public async Task Parse(DirectoryInfo directory)
         {
-            logger.Information("Parsing monsters data");
+            Log.Info("Parsing monsters data");
 
             var datDirectory = directory.GetDirectories().FirstOrDefault(x => x.Name == "Data");
             if (datDirectory == null)
             {
-                logger.Warning("Missing Data directory, skipping dat parsing");
+                Log.Warn("Missing Data directory, skipping dat parsing");
                 return;
             }
 
             var langDirectory = directory.GetDirectories().FirstOrDefault(x => x.Name == "Lang");
             if (datDirectory == null)
             {
-                logger.Warning("Missing Data directory, skipping dat parsing");
+                Log.Warn("Missing Data directory, skipping dat parsing");
                 return;
             }
 
             var datFile = datDirectory.GetFiles().FirstOrDefault(x => x.Name == "monster.dat");
             if (datFile == null)
             {
-                logger.Warning("Can't found monster.dat, skipping monster parsing");
+                Log.Warn("Can't found monster.dat, skipping monster parsing");
                 return;
             }
 
             var langFile = langDirectory.GetFiles().FirstOrDefault(x => x.Name == "_code_uk_monster.txt");
             if (langFile == null)
             {
-                logger.Warning("Can't found _code_uk_monster.txt, skipping monster parsing");
+                Log.Warn("Can't found _code_uk_monster.txt, skipping monster parsing");
                 return;
             }
 
@@ -151,8 +149,8 @@ namespace Noskito.Toolkit.Parser
             }
 
             await monsterDataRepository.SaveAll(datas);
-            
-            logger.Information($"Saved {datas.Count} monsters data");
+
+            Log.Info($"Saved {datas.Count} monsters data");
         }
 
         private static Race GetRace(byte race, byte raceType)

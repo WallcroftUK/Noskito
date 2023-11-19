@@ -2,6 +2,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
+	<Version>0.0.0.1</Version>
     <OutputPath>..\..\build\World</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
@@ -11,10 +12,13 @@
     <PackageReference Include="DotNetty.Common" Version="0.7.5" />
     <PackageReference Include="DotNetty.Handlers" Version="0.7.5" />
     <PackageReference Include="DotNetty.Transport" Version="0.7.5" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Modules\ResourceLoaderModule\DataLoader.Module.csproj" />
     <ProjectReference Include="..\Noskito.Common\Noskito.Common.csproj" />
     <ProjectReference Include="..\Noskito.Communication\Noskito.Communication.csproj" />
     <ProjectReference Include="..\Noskito.Database\Noskito.Database.csproj" />
+    <ProjectReference Include="..\Noskito.Logging\Noskito.Logging.csproj" />
   </ItemGroup>
 </Project>

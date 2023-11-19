@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Noskito.Database.Dto;
+using Noskito.Database.Dto.Accounts;
 using Noskito.World.Game.Entities;
 using Noskito.World.Network;
 using Noskito.World.Packet.Server;
@@ -9,11 +9,11 @@ namespace Noskito.World
 {
     public class WorldSession
     {
-        private readonly NetworkClient client;
+        private readonly NetworkClient _client;
 
         public WorldSession(NetworkClient client)
         {
-            this.client = client;
+            _client = client;
         }
 
         public Guid Id { get; } = Guid.NewGuid();
@@ -23,18 +23,18 @@ namespace Noskito.World
 
         public int Key
         {
-            get => client.EncryptionKey;
-            set => client.EncryptionKey = value;
+            get => _client.EncryptionKey;
+            set => _client.EncryptionKey = value;
         }
 
         public Task SendPacket<T>(T packet) where T : SPacket
         {
-            return client.SendPacket(packet);
+            return _client.SendPacket(packet);
         }
 
         public Task Disconnect()
         {
-            return client.Disconnect();
+            return _client.Disconnect();
         }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Noskito.Cluster.Manager;
 using Noskito.Cluster.Service;
-using Noskito.Common.Extension;
+using Noskito.Logging;
 using ProtoBuf.Grpc.Server;
 
 namespace Noskito.Cluster
@@ -13,7 +13,7 @@ namespace Noskito.Cluster
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLogger();
+            services.UseLoggingModule();
             services.AddCodeFirstGrpc();
 
             services.AddSingleton<ServerManager>();

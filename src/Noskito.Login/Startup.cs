@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Noskito.Common.Extension;
+using Noskito.Logging;
 using Noskito.Communication.Extension;
 using Noskito.Database.Extension;
 using Noskito.Login.Extension;
@@ -15,7 +15,7 @@ namespace Noskito.Login
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLogger();
+            services.UseLoggingModule();
             services.AddPacketFactory();
             services.AddPacketProcessing();
 

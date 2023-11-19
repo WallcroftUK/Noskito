@@ -1,20 +1,18 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using Noskito.Common.Extension;
-using Noskito.Common.Logging;
-using Noskito.Database.Dto;
+using Noskito.Database.Dto.Accounts;
 using Noskito.Database.Repository;
+using Noskito.Logging;
 
 namespace Noskito.Toolkit.Parser
 {
     public class AccountParser : IParser
     {
-        private readonly ILogger logger;
         private readonly AccountRepository accountRepository;
 
-        public AccountParser(ILogger logger, AccountRepository accountRepository)
+        public AccountParser(AccountRepository accountRepository)
         {
-            this.logger = logger;
             this.accountRepository = accountRepository;
         }
 
@@ -32,7 +30,7 @@ namespace Noskito.Toolkit.Parser
                 Password = "test".ToSha512()
             });
             
-            logger.Information("Created admin & test accounts");
+            Log.Info("Created admin & test accounts");
         }
     }
 }

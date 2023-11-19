@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Noskito.Cluster.Manager;
-using Noskito.Common.Logging;
 using Noskito.Communication.Server;
 using Noskito.Communication.Rpc.Common.Request;
 using Noskito.Communication.Rpc.Common.Response;
@@ -9,17 +8,16 @@ using Noskito.Communication.Rpc.Server;
 using Noskito.Communication.Rpc.Server.Object;
 using Noskito.Communication.Rpc.Server.Request;
 using Noskito.Communication.Rpc.Server.Response;
+using Noskito.Logging;
 
 namespace Noskito.Cluster.Service
 {
     public class RpcServerService : IRpcServerService
     {
-        private readonly ILogger logger;
         private readonly ServerManager serverManager;
 
-        public RpcServerService(ILogger logger, ServerManager serverManager)
+        public RpcServerService(ServerManager serverManager)
         {
-            this.logger = logger;
             this.serverManager = serverManager;
         }
 
@@ -61,6 +59,8 @@ namespace Noskito.Cluster.Service
                 Port = server.Port,
                 Name = server.Name
             });
+
+            Log.Info($"World {server.Name} with Ip {server.Host} and Port {server.Port} Registered");
 
             return ValueTask.FromResult(new BoolResponse
             {
