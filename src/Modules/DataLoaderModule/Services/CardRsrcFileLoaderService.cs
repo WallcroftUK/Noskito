@@ -69,7 +69,7 @@ namespace DataLoader.Module.Services
                 }
             }
 
-            Log.Info($"[DATA_LOADER] {cards.Count.ToString()} act desc loaded");
+            Log.Info($"[DATA_LOADER] {cards.Count.ToString()} cards loaded");
             return cards;
         }
 
