@@ -3,4 +3,7 @@
 
 Learning and making better emulator :)
 
-I'm making this project for learning purpose.
+Special Thanks for base of This Project
+
+<img src="https://img.shields.io/badge/-@Roxeez-%23181717?style=flat-square&logo=github" height="30">
+
